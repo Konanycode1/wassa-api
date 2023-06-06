@@ -13,7 +13,7 @@ Route.get('/commercantReadById/:id',Auth,commercant.readeById);
 Route.post('/commercantLogin/',commercant.login);
 Route.put('/commercantUpdate/',commercant.update);
 Route.delete('/commercantdelete/:id',commercant.delete);
-Route.get('/commercantreadAll/',commercant.readAll);
+Route.get('/',commercant.readAll);
 
 
 
