@@ -1,5 +1,6 @@
 const express = require('express')
-const Mongoose = require('mongoose');
+// const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 const cors = require('cors');
 const Router = require('./router/allRoute')
 const app = express();
@@ -14,7 +15,7 @@ app.use((req,res,next)=>{
     next();
 })
 
-Mongoose.connect("mongodb+srv://wassa:wassa@cluster0.vpf0ijy.mongodb.net/?retryWrites=true&w=majority",
+mongoose.connect("mongodb+srv://wassa:wassa@cluster0.vpf0ijy.mongodb.net/?retryWrites=true&w=majority",
 { useNewUrlParser: true,useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'))

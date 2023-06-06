@@ -1,4 +1,4 @@
-const Commercant = require('../model/commercant')
+const commercant = require('../model/commercant')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
@@ -53,7 +53,7 @@ class Commercants{
     }
     static async login(req,res){
        try {
-         Commercant.findOne({numero: req.body.numero})
+        commercant.findOne({numero: req.body.numero})
         .then((data)=>{
             if(!data){
                 res.status(404).json({msg: "Compte instrouvable !!!"})
@@ -81,7 +81,7 @@ class Commercants{
     }
     static async readeById (req,res){
         try {
-            Commercant.findById(req.params.id)
+            commercant.findById(req.params.id)
             .then((data)=>{
                 if(!data){
                     res.status(404).json({msg: "Compte introuvable !!"})
@@ -104,13 +104,13 @@ class Commercants{
                     logo: `${req.protocol}://${req.get('host')}/images/${req.body.logo}`,
                     password: hash
                 }:{ ...req.body,password:hash}
-                Commercant.findOne({email: req.body.email})
+                commercant.findOne({email: req.body.email})
                 .then((com)=>{
                     if(!com){
                         res.status(400).json({msg: "Comptes introuvable !!"})
                         return 
                     }
-                    Commercant.updateOne({_id:com._id},{...wassaObject, _id: com._id})
+                    commercant.updateOne({_id:com._id},{...wassaObject, _id: com._id})
                     .then((valid)=>{
                         if(!valid){
                             res.status(400).json({msg:"Modification échouée"})
@@ -130,13 +130,13 @@ class Commercants{
                 logo: `${req.protocol}://${req.get('host')}/images/${req.body.logo}`
             }:{ ...req.body}
             console.log(wassaObject.logo)
-            Commercant.findOne({email: req.body.email})
+            commercant.findOne({email: req.body.email})
             .then((com)=>{
                 if(!com){
                     res.status(400).json({msg: "Comptes introuvable !!"})
                     return 
                 }
-                Commercant.updateOne({_id:com._id},{...wassaObject, _id: com._id})
+                commercant.updateOne({_id:com._id},{...wassaObject, _id: com._id})
                 .then((valid)=>{
                     if(!valid){
                         res.status(400).json({msg:"Modification échouée"})
@@ -152,13 +152,13 @@ class Commercants{
     }
     static async delete(req, res){
         try {
-            Commercant.findOne({_id: req.params.id})
+            commercant.findOne({_id: req.params.id})
             .then((data)=>{
                 if(!data){
                     res.status(400).json({msg: "Cet compte est introuvable"})
                     return
                 }
-                Commercant.deleteOne({_id:data._id})
+                commercant.deleteOne({_id:data._id})
                 .then((com)=>{
                     if(!com){
                         res.status(400).json({msg: "Compte Non supprimé"})
@@ -177,7 +177,7 @@ class Commercants{
     }
     static async readAll(req,res){
         try {
-            Commercant.find()
+            commercant.find()
             .then((com)=>{
                 if(!com){
                     res.status(400).json({msg: "Compte introuvable !!"})
