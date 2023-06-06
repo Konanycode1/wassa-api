@@ -1,9 +1,20 @@
 const express = require('express')
-const router = express.Router();
+const Route = express.Router();
+const compagnie = require('../controller/compagnie');
+const commercant = require('../controller/commercant');
+const multer = require('../middleware/multer');
+const Auth = require('../middleware/auth')
 
-const compagnie = require('../model/compagnie');
-const commercant = require('../model/commercant')
+Route.post('/compagnieCreate/',multer,compagnie.create)
+Route.get('/compagniereadById/:id',compagnie)
+// <.....comercant API .....>
+Route.post('/commercantcreate/',multer,commercant.create);
+Route.get('/commercantReadById/:id',Auth,commercant.readeById);
+Route.post('/commercantLogin/',commercant.login);
+Route.put('/commercantUpdate/',commercant.update);
+Route.delete('/commercantdelete/:id',commercant.delete);
+Route.get('/commercantreadAll/',commercant.readAll);
 
-router.post('/create/', compagnie.create)
-router.post('/create/', commercant.create)
-module.exports = router
+
+
+module.exports = Route

@@ -7,10 +7,12 @@ const Commercant = mongoose.Schema({
     numero: {type: String, required: true},
     numeroCNI: {type:String, required: true},
     email: {type: String, required: true},
-    profession: {type: String, required: true}
+    profession: {type: String, required: true},
+    logo: {type: String, required: true},
+    password: {type: String,required: true}
 },
 {
     timesTamps: true
 })
-Commercant.plugin(uniqueValidate)
+Commercant.plugin(uniqueValidate);
 module.exports = mongoose.model('Commercant', Commercant);

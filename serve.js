@@ -1,7 +1,7 @@
 const express = require('express')
 const Mongoose = require('mongoose');
 const cors = require('cors');
-const allRoute = require('./router/allRoute')
+const Router = require('./router/allRoute')
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -19,7 +19,7 @@ Mongoose.connect("mongodb+srv://wassa:wassa@cluster0.vpf0ijy.mongodb.net/?retryW
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'))
 
-app.use('/api/', allRoute);
+app.use('/api', Router);
  
 let port = process.env.PORT || 3000
 app.listen(port, ()=>{ console.log(`server lancé port ${port} à pour lien : http://localhost:${port}`)})

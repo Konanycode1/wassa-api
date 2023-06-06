@@ -14,5 +14,5 @@ const compagnie = mongoose.Schema({
     timesTamps: true
 })
 
-compagnie.plugin(uniqueValidate)
-module.exports = mongoose.model('Compagnie', compagnie)
+compagnie.plugin(uniqueValidate);
+module.exports = mongoose.model('Compagnie', compagnie);
