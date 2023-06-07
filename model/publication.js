@@ -1,13 +1,17 @@
 const mongoose = require('mongoose')
-const compagnie = required('../model/compagnie')
+const compagnie = require('../model/compagnie')
 const uniqueValidate = require('mongoose-unique-validator')
 
 const Publication = mongoose.Schema({
     matricule :{type: String,required: true},
-    nomPrenom_chauff :{type:String, required: true},
-    numero_Chauff: {type:String, required: true},
+    nomPrenomchauff:{type:String, required: true},
+    numeroChauff: {type:String, required: true},
+    numeroCNI:{type:String, required: true},
     ligneDepart: {type:String, required: true},
     ligneArrive: {type:String, required: true},
+    heureDepart: {type:String, required: true},
+    espace:{type:String, required: true},
+    espaceRestant: {type:Number, required:true},
     compagnie: {type: mongoose.Schema.Types.ObjectId, ref:compagnie}
 },
 {
