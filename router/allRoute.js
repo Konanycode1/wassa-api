@@ -29,8 +29,11 @@ Route.get('/readidPub/:id',Auth,publication.readId);
 Route.get('/readAllPub/',publication.read);
 Route.get('/deletePub/:id',Auth,publication.delete);
 // <.....Commande de la pub API .....>
-Route.post('/commande/:id',Auth,commander.commander )
-Route.get('/valider/:id',Auth,commander.valide )
-
+Route.post('/commande/:id',Auth,commander.commander)
+Route.get('/valider/:id',Auth,commander.valide)
+Route.get('/annuler/:id',Auth,commander.annuler)
+Route.get('/annulerByCom/:id',Auth,commander.annulerCommercant)
+Route.get('/allCommande/',commander.allCommande)
+Route.get('/CommandeById/:id',commander.commandeId)
 
 module.exports = Route

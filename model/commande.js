@@ -10,7 +10,7 @@ const Commande = mongoose.Schema({
     numeroExp: {type:String, requered: true},
     nomPrenomExp: {type:String, requered: true},
     destination: {type:String, required:true},
-    status: {type:Number, default: 1, required: true},
+    status: {type:Number, default: 0, required: true},
     idClient: {type: mongoose.Schema.Types.ObjectId, ref:commercant},
     idPub : {type: mongoose.Schema.Types.ObjectId, ref:publication},
     idCompa : {type: mongoose.Schema.Types.ObjectId, ref:compagnie}
