@@ -6,7 +6,7 @@ const publication = require('../controller/publication');
 const commander = require('../controller/commande');
 const multer = require('../middleware/multer');
 const Auth = require('../middleware/auth')
-// <.....compagnie API .....>
+// <.....compagnie API .....> 
 Route.post('/compagnieCreate/',multer,compagnie.create)
 Route.post('/compagnieLogin/',compagnie.login);
 Route.put('/compagnieUpdate/:id',compagnie.update);
