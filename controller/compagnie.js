@@ -30,7 +30,6 @@ class Compagnie {
                             if(!hash){
                                 return
                             }
-                            console.log(req.file)
                             let compagn = new compagnie({
                                 compagnie:req.body.compagnie,
                                 numero: req.body.numero,
