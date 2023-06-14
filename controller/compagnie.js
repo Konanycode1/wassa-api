@@ -62,7 +62,7 @@ class Compagnie {
     }
     static async login(req,res){
         try {
-            compagnie.findOne({email: req.body.email})
+            compagnie.findOne({email:req.body.email})
             .then((data)=>{
                 if(!data){
                     res.status(400).json({msg:"Email introuvable"})
