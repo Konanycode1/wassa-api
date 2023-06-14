@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cors())
-app.use('/images', express.static(path.join(__dirname, 'images')));
+
 
 app.use((req,res,next)=>{
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -23,6 +23,7 @@ mongoose.connect("mongodb+srv://wassa:wassa@cluster0.vpf0ijy.mongodb.net/?retryW
   .catch(() => console.log('Connexion à MongoDB échouée !'))
 
 app.use('/api', Router);
+app.use('/images', express.static(path.join(__dirname, 'images')));
  
 let port = process.env.PORT || 3000
 app.listen(port, ()=>{ console.log(`server lancé port ${port} à pour lien : http://localhost:${port}`)})

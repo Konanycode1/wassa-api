@@ -7,16 +7,15 @@ class Compagnie {
         try {
             compagnie.findOne({email:req.body.email})
             .then((data)=>{
+                
                 if(data){                                                                                                                            
                     res.status(400).json({msg: "La compagnie existe déjà"})
+                    
                     return
                 }
                 else{
-                    if(req.body.numero.length < 10){
-                        res.status(400).json({msg: "Contact trop court !!"})
-                        return
-                    }
-                    else if(req.body.numero.length >10 || req.body.numero.length < 10){
+                    
+                    if(req.body.numero.length != 10){
                         res.status(400).json({msg: "Ceci n'est pas un numéro de la CI !!"})
                         return
                     }
@@ -25,6 +24,7 @@ class Compagnie {
                         return
                     }
                     else{
+                        
                         bcrypt.hash(req.body.password,10)
                         .then((hash)=> {
                             if(!hash){
@@ -34,7 +34,7 @@ class Compagnie {
                                 compagnie:req.body.compagnie,
                                 numero: req.body.numero,
                                 email: req.body.email,
-                                logo: `${req.protocol}://${req.get('host')}/images/${req.body.logo}`,
+                                logo: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
                                 commune: req.body.commune,
                                 degret: req.body.degret,
                                 password: hash
@@ -48,13 +48,9 @@ class Compagnie {
                                     res.status(400).json({msg: "Inscription échouée😡😡"})
                                 }
                             })
-                            .catch((error)=>{ 
-                                res.status(400).json({error: error.message})})  
-
+                            .catch((error)=>{res.status(400).json({error: error.message})})  
                         })
-                        .catch((error)=>{
-                           
-                         res.status(400).json({error:error.message})})
+                        .catch((error)=>{res.status(400).json({error:error.message})})
                     }
                 }
             })

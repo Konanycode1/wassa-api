@@ -15,4 +15,4 @@ const storage = multer.diskStorage({
         collback(null, name+Date.now()+'.'+extension);
     }
 });
-module.exports = multer({storage}).single('image')
+module.exports = multer({storage}).single('logo')
