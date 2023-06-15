@@ -5,7 +5,7 @@ const compagnie = require('../model/compagnie')
 
 class Publication {
     static async create(req,res){
-        if(req.body.numeroChauff.length <10 && req.body.numeroChauff.length >10){
+        if( req.body.numeroChauff.length != 10){
             res.status(400).json({msg: "Numéro incorrecte"})
             return
         }
