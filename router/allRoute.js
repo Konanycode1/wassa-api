@@ -13,7 +13,7 @@ Route.put('/compagnieUpdate/:id',compagnie.update);
 Route.post('/compagnieVerifyByEmail/',compagnie.verifByEmail);
 Route.delete('/compagniedelete/:id',compagnie.delete);
 Route.get('/compagnieReadAll/',compagnie.readAll);
-Route.get('/compagnieReadId/:id',compagnie.readId);
+Route.get('/compagnieReadId/:id',Auth,compagnie.readId);
 // Route.get('/compagniereadById/:id',compagnie)
 // <.....comercant API .....>
 Route.post('/commercantcreate/',multer,commercant.create);

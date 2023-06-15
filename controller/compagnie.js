@@ -60,7 +60,7 @@ class Compagnie {
             res.status(500).json({error: error.message})
         }
     }
-    static async login(req,res){
+    static async login(req,res){    
         try {
             compagnie.findOne({email:req.body.email})
             .then((data)=>{
@@ -78,7 +78,9 @@ class Compagnie {
                         res.status(201).json({
                             userId:data._id,
                             status: "compagnie",
-                            token: jwt.sign({userId: data._id}, "RANDOM_TOKEN_KEY")
+                            token: jwt.sign({userId: data._id}, "RANDOM_TOKEN_KEY",{
+                                expiresIn: 24*3600
+                            })
                         })
                     }
 
