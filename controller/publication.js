@@ -13,6 +13,7 @@ class Publication {
         .then((data)=>{
             if(!data){
                 res.status(400).json({msg: "Compte introuvable"})
+                return
             }
             let pub = new Publici({
                 ...req.body,
@@ -74,6 +75,24 @@ class Publication {
         publication.findById(req.params.id)
         .then((data)=> res.status(200).json({data}))
         .catch((error)=> res.status(400).json({error: error.message}))
+    }
+    static async readPubCom(req,res){
+        try {
+            compagnie.findById(req.auth.userId)
+            .then((comp)=>{
+                if(!comp){
+                    res.status(404).json({msg: "Compagnie introuvable"})
+                    return
+                }
+                publication.find({compagnie: comp._id})
+                .then((data)=> res.status(201).json(data))
+                .catch((error)=>res.status(400).json({error: error.message}))
+            })
+            .catch((error)=> res.status(400).json({error: error.message}))
+        } catch (error) {
+            res.status(500).json({error: error.message})
+        }
+
     }
     static async delete(req,res){
         compagnie.findById(req.auth.userId)

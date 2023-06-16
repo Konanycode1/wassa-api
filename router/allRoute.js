@@ -26,6 +26,7 @@ Route.get('/',commercant.readAll);
 Route.post('/publication/',Auth,publication.create);
 Route.put('/updatePub/:id',Auth,publication.update);
 Route.get('/readidPub/:id',Auth,publication.readId);
+Route.get('/readidPubCom/',Auth,publication.readPubCom)
 Route.get('/readAllPub/',publication.read);
 Route.get('/deletePub/:id',Auth,publication.delete);
 // <.....Commande de la pub API .....>

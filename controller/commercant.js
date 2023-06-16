@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 class Commercants{
     static async create(req,res){
         try {
-            Commercant.findOne({email: req.body.email})
+            commercant.findOne({email: req.body.email})
             .then((data)=> {
                 if(data){
                     res.status(400).json({msg: "Compte existe déjà veuillez vous connecter"})
@@ -23,9 +23,9 @@ class Commercants{
                         bcrypt.hash(req.body.password, 10)
                         .then((hash)=>{
                             if(hash){
-                                let commerce = new Commercant({
+                                let commerce = new commercant({
                                     ...req.body,
-                                    logo: `${req.protocol}://${req.get('host')}/images/${req.body.logo}`,
+                                    logo: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
                                     password: hash
                                 })
                                 commerce.save()
