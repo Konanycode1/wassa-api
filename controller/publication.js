@@ -76,6 +76,31 @@ class Publication {
         .then((data)=> res.status(200).json({data}))
         .catch((error)=> res.status(400).json({error: error.message}))
     }
+    static async terminer(req, res){
+        Compagnie.findById(req.auth.userId)
+        .then((comp)=>{
+            if(!comp){
+                res.status(404).json({msg: "Compagnie introuvable"})
+            }
+            publication.findone({_id: req.params.id})
+            .then((publ)=>{
+                if(!publ){
+                    res.status(404).json({msg: "Publication introuvable"})
+                }
+                let sta ={
+                    statut: 1
+
+                }
+                publication.updateOne({_id: publ._id}, {...sta,_id: publ._id})
+                .then(()=>{
+                    res.status(201).json({msg: "Arrivage"})
+                })
+                .catch((error)=> res.status(404).json({error: error.message}))
+            })
+            .catch((error)=> res.status(404).json({error: error.message}))
+        })
+        .catch((error)=> res.status(404).json({error: error.message}))
+    }
     static async readPubCom(req,res){
         try {
             compagnie.findById(req.auth.userId)

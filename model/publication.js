@@ -11,6 +11,7 @@ const Publication = mongoose.Schema({
     ligneArrive: {type:String, required: true},
     heureDepart: {type:String, required: true},
     espace:{type:String, required: true},
+    statut: {type: Number, default: 0},
     espaceRestant: {type:Number, required:true},
     compagnie: {type: mongoose.Schema.Types.ObjectId, ref:compagnie}
 },

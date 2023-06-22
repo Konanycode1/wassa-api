@@ -92,7 +92,6 @@ class Commande {
                             })
                             .catch((error)=> res.status(400).json({error: error.messsage}))
                         }
-                       
                     })
                     .catch((error)=> res.status(400).json({error: error.message}))
                 })
