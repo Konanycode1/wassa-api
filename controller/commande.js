@@ -20,8 +20,6 @@ class Commande {
                     return 
                 }
                 else{
-
-                    console.log(req.body.nombreProduit, pub.espace.split(" ")[0])
                     if( parseInt(req.body.nombreProduit ) > pub.espace.split(" ")[0] ){
                         res.status(400).json({msg: "Espace inssuffisant"})
                         return  
@@ -71,26 +69,30 @@ class Commande {
                             res.status(404).json({msg: "Publication introuvable"});
                             return
                         }
-                        
-                        let espaceDis = pub.espace.split(" ")[0]
-                        let espaceR = {
-                            espaceRestant:`${espaceDis-cmd.nombreProduit.split(" ")[0]<=0?0:espaceDis-cmd.nombreProduit.split(" ")[0]}`
+                        else if( pub.espace.split(' ')[0] == 0){
+                            res.status(404).json({msg: "Pas d'espace disponible"})
                         }
-                    Publication.updateOne({_id: pub._id},{...espaceR,_id: pub._id})
-                    .then((valid)=>{
-                        if(!valid){
-                            res.status(400).json({msg: "Commande échouée"});
-                            return
+                        else{
+                            let espaceDis = pub.espace.split(" ")[0]
+                            let espaceR = {
+                                espaceRestant:`${espaceDis-cmd.nombreProduit.split(" ")[0]<=0?0:espaceDis-cmd.nombreProduit.split(" ")[0]}`
+                            }
+                            Publication.updateOne({_id: pub._id},{...espaceR,_id: pub._id})
+                            .then((valid)=>{
+                                if(!valid){
+                                    res.status(400).json({msg: "Commande échouée"});
+                                    return
+                                }
+                                let commando = {
+                                    status:1
+                                }
+                                commande.updateOne({_id:cmd._id}, {...commando, _id:cmd._id})
+                                .then(()=>res.status(201).json({msg: "Commande validée"}))
+                                .catch((error)=> res.status(400).json({error: error.message}))
+                            })
+                            .catch((error)=> res.status(400).json({error: error.messsage}))
                         }
-                        let commando = {
-                            status:1
-                        }
-                        commande.updateOne({_id:cmd._id}, {...commando, _id:cmd._id})
-                        .then(()=>res.status(201).json({msg: "Commande validée"}))
-                        .catch((error)=> res.status(400).json({error: error.message}))
-                    })
-                    .catch((error)=> res.status(400).json({error: error.messsage}))
-    
+                       
                     })
                     .catch((error)=> res.status(400).json({error: error.message}))
                 })
