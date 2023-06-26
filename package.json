@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "projet transport (livraison)\r ## Bon à savoir sur le projet\r ce projet répond au besoin des commerçant qui achète des marchandise X lieu pour livrer à Y lieu",
   "main": "serve.js",
-  "types": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "node serve.js",
