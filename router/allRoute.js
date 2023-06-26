@@ -29,7 +29,7 @@ Route.get('/readidPub/:id',Auth,publication.readId);
 Route.get('/readidPubCom/',Auth,publication.readPubCom)
 Route.get('/readAllPub/',publication.read);
 Route.get('/deletePub/:id',Auth,publication.delete);
-Route.put('/terminer/:id', Auth, publication.terminer)
+Route.get('/terminer/:id', Auth, publication.terminer)
 // <.....Commande de la pub API .....>
 Route.post('/commande/:id',Auth,commander.commander)
 Route.get('/valider/:id',Auth,commander.valide)
