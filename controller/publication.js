@@ -82,7 +82,7 @@ class Publication {
             if(!comp){
                 res.status(404).json({msg: "Compagnie introuvable"})
             }
-            publication.findone({_id: req.params.id})
+            publication.findOne({_id: req.params.id})
             .then((publ)=>{
                 if(!publ){
                     res.status(404).json({msg: "Publication introuvable"})
