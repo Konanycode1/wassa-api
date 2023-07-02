@@ -5,9 +5,9 @@ const compagnie = require('../model/compagnie')
 
 class Publication {
     static async create(req,res){
-        const {espace,...body} = req.body;
+        const {espace,numeroChauff,...body} = req.body;
 
-        if( req.body.numeroChauff.length != 10){
+        if( numeroChauff.length != 10){
             res.status(400).json({msg: "Numéro incorrecte"})
             return
         }
@@ -23,6 +23,7 @@ class Publication {
             }
             let pub = new Publici({
                 body,
+                numeroChauff,
                 espace,
                 espaceRestant:espace.split(' ')[0],
                 compagnie: data._id
