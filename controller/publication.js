@@ -5,6 +5,8 @@ const compagnie = require('../model/compagnie')
 
 class Publication {
     static async create(req,res){
+        const {espace,...body} = req.body;
+
         if( req.body.numeroChauff.length != 10){
             res.status(400).json({msg: "Numéro incorrecte"})
             return
@@ -15,9 +17,14 @@ class Publication {
                 res.status(400).json({msg: "Compte introuvable"})
                 return
             }
+            
+            if(espace.split(" ")[1] == "kg".toLowerCase() ){
+                return espace = `${espace.split(" ")[0]/1000} tonne`
+            }
             let pub = new Publici({
-                ...req.body,
-                espaceRestant: req.body.espace.split(" ")[0],
+                body,
+                espace,
+                espaceRestant:espace.split(' ')[0],
                 compagnie: data._id
             })
             pub.save()
