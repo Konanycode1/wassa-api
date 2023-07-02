@@ -5,41 +5,48 @@ const compagnie = require('../model/compagnie')
 
 class Publication {
     static async create(req,res){
-        const {espace,numeroChauff,...body} = req.body;
-
-        if( numeroChauff.length != 10){
-            res.status(400).json({msg: "Numéro incorrecte"})
-            return
-        }
-        Compagnie.findById(req.auth.userId)
-        .then((data)=>{
-            if(!data){
-                res.status(400).json({msg: "Compte introuvable"})
+        try {
+            let {espace,numeroChauff,...body} = req.body;
+            if( numeroChauff.length != 10){
+                res.status(400).json({msg: "Numéro incorrecte"})
                 return
             }
-            
-            if(espace.split(" ")[1] == "kg".toLowerCase() ){
-                return espace = `${espace.split(" ")[0]/1000} tonne`
-            }
-            let pub = new Publici({
-                body,
-                numeroChauff,
-                espace,
-                espaceRestant:espace.split(' ')[0],
-                compagnie: data._id
-            })
-            pub.save()
-            .then((valid)=> {
-                if(valid){
-                    res.status(200).json({msg:"Publication éffectuée avec succès"})
+            Compagnie.findById(req.auth.userId)
+            .then((data)=>{
+                if(!data){
+                    res.status(400).json({msg: "Compte introuvable"})
+                    return
                 }
-                else{
-                    res.status(400).json({msg:"Publication échouée"})
+                if(espace.split(" ")[1].toLowerCase() == "kg" ){
+                    espace = `${espace.split(" ")[0]/1000} tonne`
                 }
+                let pub = new Publici({
+                    ...body,
+                    numeroChauff ,
+                    espace,
+                    espaceRestant:espace.split(' ')[0],
+                    compagnie: data._id
+                })
+                pub.save()
+                .then((valid)=> {
+                    if(valid){ 
+                        res.status(200).json({msg:"Publication éffectuée avec succès"})
+                    }
+                    else{
+                        
+                        res.status(400).json({msg:"Publication échouée"})
+                    }
+                })
+                .catch((error)=> { 
+                    console.log("ok")
+                    res.status(400).json({error: error.message})
+                })
             })
             .catch((error)=> res.status(400).json({error: error.message}))
-        })
-        .catch((error)=> res.status(400).json({error: error.message}))
+        } catch (error) {
+            res.status(500).json({error: error.message})
+        }
+       
     }
     static async update(req,res){
         
